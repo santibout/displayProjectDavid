@@ -103,30 +103,35 @@ app.post("/api/post", (req, res) => {
   // console.log("-----------------------------------------");
   // console.log(req.body);
   // console.log("-----------------------------------------");
-  let str = "";
-  for (let x in req.body) {
-    if (x !== "currentStep" && x !== "lastStep") {
-      console.log(`${x}: ${req.body[x]}`);
-      str += `<p>${x}: ${req.body[x]}</p>`;
+  try {
+    let str = "";
+    for (let x in req.body) {
+      if (x !== "currentStep" && x !== "lastStep") {
+        console.log(`${x}: ${req.body[x]}`);
+        str += `<p>${x}: ${req.body[x]}</p>`;
+      }
     }
+    const msg = {
+      to: "santibout@yahoo.com", // Change to your recipient
+      from: "samuel.santibout@gmail.com", // Change to your verified sender
+      subject: "Sending with SendGrid is Fun",
+      text: req.body.toString(),
+      html: `${str}`,
+    };
+    sgMail
+      .send(msg)
+      .then(() => {
+        console.log("Email sent");
+      })
+      .catch((error) => {
+        console.log("error error error");
+        console.error(error);
+      });
+    res.send("fin");
+  } catch (err) {
+    console.log("Error Error Error");
+    res.send("Error... Error... Error...", err);
   }
-  const msg = {
-    to: "santibout@yahoo.com", // Change to your recipient
-    from: "samuel.santibout@gmail.com", // Change to your verified sender
-    subject: "Sending with SendGrid is Fun",
-    text: req.body.toString(),
-    html: `${str}`,
-  };
-  sgMail
-    .send(msg)
-    .then(() => {
-      console.log("Email sent");
-    })
-    .catch((error) => {
-      console.log("error error error");
-      console.error(error);
-    });
-  res.send("fin");
 });
 
 app.listen(3201, () => console.log("server running on port 3201"));
