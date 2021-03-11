@@ -6,7 +6,7 @@ const readline = require("readline");
 const { google } = require("googleapis");
 const FormData = require("./models/form");
 const MongoClient = require("mongodb").MongoClient;
-const cors = require('cors');
+const cors = require("cors");
 
 require("dotenv").config();
 
@@ -19,6 +19,14 @@ sgMail.setApiKey(process.env.SENDGRID_ZERO_API_KEY);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 app.get("/api/", async (req, res) => {
   const client = new MongoClient(uri, { useUnifiedTopology: true });
