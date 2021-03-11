@@ -62,7 +62,10 @@ app.post("/api/post", async (req, res) => {
       from: "samuel.santibout@gmail.com",
       personalizzations: [
         {
-          to: ["santibout@yahoo.com", "david@kayoadventures.com"],
+          to: { email: "santibout@yahoo.com" },
+        },
+        {
+          to: { email: "david@kayoventures.com" },
         },
       ],
       subject: "CCCAA Form Data",
