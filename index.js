@@ -1,9 +1,5 @@
 const express = require("express");
-const postmark = require("postmark");
 const sgMail = require("@sendgrid/mail");
-const fs = require("fs");
-const readline = require("readline");
-const { google } = require("googleapis");
 const FormData = require("./models/form");
 const MongoClient = require("mongodb").MongoClient;
 const cors = require("cors");
@@ -16,35 +12,30 @@ const uri = process.env.MONGODB_URI;
 require("dotenv").config();
 sgMail.setApiKey(process.env.SENDGRID_ZERO_API_KEY);
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
 
-app.get("/api/", async (req, res) => {
+app.get("/api", async (req, res) => {
   const client = new MongoClient(uri, { useUnifiedTopology: true });
   try {
+    console.log("trying to get data");
     await client.connect();
 
     const database = client.db("cccaa");
     const collection = database.collection("form-data");
 
-    // Query for a movie that has the title 'Back to the Future'
-    const query = {};
-    const data = await collection.find();
+    const data = await collection.find().toArray();
+    if (data) {
+      console.log("data: ......");
+      console.log(data);
+    }
 
-    return res.json(data);
+    res.status(200).send(data);
   } catch (err) {
+    console.log("error getting data");
     console.log(err);
   } finally {
-    // Ensures that the client will close when you finish/error
     await client.close();
   }
 });
