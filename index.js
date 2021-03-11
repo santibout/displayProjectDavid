@@ -45,15 +45,15 @@ app.post("/api/post", async (req, res) => {
     await client.connect();
     const database = client.db("cccaa");
     const collection = database.collection("form-data");
-
-    const results = await collection.insertOne({ ...req.body });
+    let newData = new FormData({ ...req.body });
+    const results = await collection.insertOne(newData);
     console.log("successful baby");
     console.log(results);
 
     let str = "";
     for (let x in req.body) {
       if (x !== "currentStep" && x !== "lastStep") {
-        console.log(`${x}: ${req.body[x]}`);
+        // console.log(`${x}: ${req.body[x]}`);
         str += `<p>${x}: ${req.body[x]}</p>`;
       }
     }
