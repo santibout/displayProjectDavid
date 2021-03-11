@@ -59,24 +59,28 @@ app.post("/api/post", async (req, res) => {
       }
     }
     const msg = {
+      from: "samuel.santibout@gmail.com",
       personalizzations: [
         {
-          from: "samuel.santibout@gmail.com",
           to: [
             {
               name: "Samuel J. Santibout",
               email: "santibout@yahoo.com",
             },
+          ],
+        },
+        {
+          to: [
             {
               name: "David Kayo",
               email: "david@kayoventures.com",
             },
           ],
-          subject: "CCCAA Form Data",
-          text: req.body.toString(),
-          html: `${str}`,
         },
       ],
+      subject: "CCCAA Form Data",
+      text: req.body.toString(),
+      html: `${str}`,
     };
     sgMail
       .send(msg)
