@@ -53,4 +53,4 @@ app.post("/api/post", (req, res) => {
   }
 });
 
-app.listen(3201, () => console.log("Project David Is Live"));
+app.listen(process.env.PORT || 3201, () => console.log("Project David Is Live"));
