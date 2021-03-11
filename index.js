@@ -4,8 +4,13 @@ const sgMail = require("@sendgrid/mail");
 const fs = require("fs");
 const readline = require("readline");
 const { google } = require("googleapis");
+const FormData = require("./models/form");
+const MongoClient = require("mongodb").MongoClient;
+
+require("dotenv").config();
 
 const app = express();
+const uri = process.env.MONGODB_URI;
 
 require("dotenv").config();
 sgMail.setApiKey(process.env.SENDGRID_ZERO_API_KEY);
@@ -13,15 +18,38 @@ sgMail.setApiKey(process.env.SENDGRID_ZERO_API_KEY);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/api/", (req, res) => {
-  res.send("hi");
+app.get("/api/", async (req, res) => {
+  const client = new MongoClient(uri, { useUnifiedTopology: true });
+  try {
+    await client.connect();
+
+    const database = client.db("cccaa");
+    const collection = database.collection("form-data");
+
+    // Query for a movie that has the title 'Back to the Future'
+    const query = {};
+    const data = await collection.find();
+
+    return res.json(data);
+  } catch (err) {
+    console.log(err);
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
 });
 
-app.post("/api/post", (req, res) => {
-  console.log("-----------------------------------------");
-  console.log(req.body);
-  console.log("-----------------------------------------");
+app.post("/api/post", async (req, res) => {
+  const client = new MongoClient(uri, { useUnifiedTopology: true });
   try {
+    await client.connect();
+    const database = client.db("cccaa");
+    const collection = database.collection("form-data");
+
+    const results = await collection.insertOne({ ...req.body });
+    console.log("successful baby");
+    console.log(results);
+
     let str = "";
     for (let x in req.body) {
       if (x !== "currentStep" && x !== "lastStep") {
@@ -45,10 +73,13 @@ app.post("/api/post", (req, res) => {
         console.log("error error error");
         console.error(error);
       });
-    res.send("fin");
+    res.status(200).send("fin");
   } catch (err) {
     console.log("Error Error Error");
-    res.send("Error... Error... Error...", err);
+    console.log(err);
+    res.status(400).send("Error... Error... Error...", err);
+  } finally {
+    await client.close();
   }
 });
 
