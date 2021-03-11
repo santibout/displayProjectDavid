@@ -59,9 +59,14 @@ app.post("/api/post", async (req, res) => {
       }
     }
     const msg = {
-      to: "santibout@yahoo.com",
       from: "samuel.santibout@gmail.com",
-      subject: "Sending with SendGrid is Fun",
+      personalizzations: [
+        {
+          to: "santibout@yahoo.com",
+        },
+        { to: 'david@kayoventures.com'}
+      ],
+      subject: "CCCAA Form Data",
       text: req.body.toString(),
       html: `${str}`,
     };
