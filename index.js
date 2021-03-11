@@ -8,7 +8,6 @@ const { google } = require("googleapis");
 const app = express();
 
 require("dotenv").config();
-console.log("sendgrid api key: ", process.env.SENDGRID_ZERO_API_KEY);
 sgMail.setApiKey(process.env.SENDGRID_ZERO_API_KEY);
 
 app.use(express.json());
@@ -31,8 +30,8 @@ app.post("/api/post", (req, res) => {
       }
     }
     const msg = {
-      to: "santibout@yahoo.com", 
-      from: "samuel.santibout@gmail.com", 
+      to: "santibout@yahoo.com",
+      from: "samuel.santibout@gmail.com",
       subject: "Sending with SendGrid is Fun",
       text: req.body.toString(),
       html: `${str}`,
@@ -53,4 +52,6 @@ app.post("/api/post", (req, res) => {
   }
 });
 
-app.listen(process.env.PORT || 3201, () => console.log("Project David Is Live"));
+app.listen(process.env.PORT || 3201, () =>
+  console.log("Project David Is Live")
+);
