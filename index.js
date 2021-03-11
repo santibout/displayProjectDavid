@@ -8,7 +8,7 @@ const { google } = require("googleapis");
 const app = express();
 
 require("dotenv").config();
-
+console.log("sendgrid api key: ", process.env.SENDGRID_ZERO_API_KEY);
 sgMail.setApiKey(process.env.SENDGRID_ZERO_API_KEY);
 
 app.use(express.json());
@@ -19,10 +19,9 @@ app.get("/api/", (req, res) => {
 });
 
 app.post("/api/post", (req, res) => {
-  console.clear();
-  // console.log("-----------------------------------------");
-  // console.log(req.body);
-  // console.log("-----------------------------------------");
+  console.log("-----------------------------------------");
+  console.log(req.body);
+  console.log("-----------------------------------------");
   try {
     let str = "";
     for (let x in req.body) {
@@ -32,8 +31,8 @@ app.post("/api/post", (req, res) => {
       }
     }
     const msg = {
-      to: "santibout@yahoo.com", // Change to your recipient
-      from: "samuel.santibout@gmail.com", // Change to your verified sender
+      to: "santibout@yahoo.com", 
+      from: "samuel.santibout@gmail.com", 
       subject: "Sending with SendGrid is Fun",
       text: req.body.toString(),
       html: `${str}`,
@@ -54,4 +53,4 @@ app.post("/api/post", (req, res) => {
   }
 });
 
-app.listen(3201, () => console.log("server running on port 3201"));
+app.listen(3201, () => console.log("Project David Is Live"));
