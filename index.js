@@ -3,6 +3,9 @@ const sgMail = require("@sendgrid/mail");
 const FormData = require("./models/form");
 const MongoClient = require("mongodb").MongoClient;
 const cors = require("cors");
+const pdfDoc = require("pdfkit");
+const pdf = require("html-pdf");
+const doc = new pdfDoc();
 
 require("dotenv").config();
 
@@ -60,7 +63,7 @@ app.post("/api/post", async (req, res) => {
     }
     const msg = {
       from: "samuel.santibout@gmail.com",
-      to: ['santibout@yahoo.com', 'david@kayoventures.com'],
+      to: ["santibout@yahoo.com", "david@kayoventures.com"],
       subject: "CCCAA Form Data",
       text: req.body.toString(),
       html: `${str}`,
