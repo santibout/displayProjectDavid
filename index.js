@@ -46,6 +46,18 @@ app.get("/api", async (req, res) => {
 app.post("/api/post", async (req, res) => {
   const client = new MongoClient(uri, { useUnifiedTopology: true });
   try {
+
+
+    pdf.create(template(req.body), {}).toFile("result.pdf", (err) => {
+      if (err) {
+        res.send(Promise.reject());
+      }
+      res.send(Promise.resolve());
+    });
+
+
+    
+
     await client.connect();
     const database = client.db("cccaa");
     const collection = database.collection("form-data");
