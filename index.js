@@ -6,6 +6,8 @@ const cors = require("cors");
 const pdfDoc = require("pdfkit");
 const pdf = require("html-pdf");
 const doc = new pdfDoc();
+const template = require("./documents");
+const fs = require("fs");
 
 require("dotenv").config();
 
@@ -46,50 +48,49 @@ app.get("/api", async (req, res) => {
 app.post("/api/post", async (req, res) => {
   const client = new MongoClient(uri, { useUnifiedTopology: true });
   try {
+    pdf
+      .create(template(req.body.fullName), {})
+      .toFile("attachment.pdf", async (err, result) => {
+        if (err) {
+          result.send(Promise.reject());
+        }
+        const attachment = fs.readFileSync(result.filename).toString("base64");
 
+        const msg = {
+          from: "samuel.santibout@gmail.com",
+          to: ["santibout@yahoo.com", "david@kayoventures.com"],
+          subject: "CCCAA Form Data",
+          text: req.body.toString(),
+          // html: `<h1>See Attachments For Details</h1>`,
+          attachments: [
+            {
+              content: attachment,
+              filename: "attachment.pdf",
+              type: "application/pdf",
+              disposition: "attachment",
+            },
+          ],
+        };
+        //   sgMail
+        //     .send(msg)
+        //     .then(() => {
+        //       console.log("Email sent");
+        //     })
+        //     .catch((error) => {
+        //       console.log("error error error");
+        //       console.error(error);
+        //     });
+        // });
 
-    pdf.create(template(req.body), {}).toFile("result.pdf", (err) => {
-      if (err) {
-        res.send(Promise.reject());
-      }
-      res.send(Promise.resolve());
-    });
-
-
-    
-
-    await client.connect();
-    const database = client.db("cccaa");
-    const collection = database.collection("form-data");
-    let newData = new FormData({ ...req.body });
-    const results = await collection.insertOne(newData);
-    console.log("successful baby");
-    console.log(results);
-
-    let str = "";
-    for (let x in req.body) {
-      if (x !== "currentStep" && x !== "lastStep") {
-        // console.log(`${x}: ${req.body[x]}`);
-        str += `<p>${x}: ${req.body[x]}</p>`;
-      }
-    }
-    const msg = {
-      from: "samuel.santibout@gmail.com",
-      to: ["santibout@yahoo.com", "david@kayoventures.com"],
-      subject: "CCCAA Form Data",
-      text: req.body.toString(),
-      html: `${str}`,
-    };
-    sgMail
-      .send(msg)
-      .then(() => {
-        console.log("Email sent");
-      })
-      .catch((error) => {
-        console.log("error error error");
-        console.error(error);
+        // await client.connect();
+        // const database = client.db("cccaa");
+        // const collection = database.collection("form-data");
+        // let newData = new FormData({ ...req.body });
+        // const results = await collection.insertOne(newData);
+        // console.log(results);
+        console.log(attachment)
+        res.status(200).send(attachment);
       });
-    res.status(200).send("fin");
   } catch (err) {
     console.log("Error Error Error");
     console.log(err);
