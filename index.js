@@ -66,7 +66,9 @@ app.get("/api", async (req, res) => {
 // });
 
 app.get("/fetch-pdf", async (req, res) => {
-  await openFile("result.pdf", { wait: true });
+  console.log("sending file");
+  await openFile("attachment.pdf", { wait: true });
+  res.send("file sent");
 });
 
 app.post("/api/post", async (req, res) => {
@@ -85,8 +87,7 @@ app.post("/api/post", async (req, res) => {
 
         const msg = {
           from: "samuel.santibout@gmail.com",
-          to: ["santibout@yahoo.com"],
-          // to: ["santibout@yahoo.com", "david@kayoventures.com"],
+          to: ["santibout@yahoo.com", "david@kayoventures.com"],
           subject: "CCCAA Form Data",
           text: "Attached is the pdf",
           attachments: [
