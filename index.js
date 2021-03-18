@@ -7,6 +7,7 @@ const pdf = require("html-pdf");
 const template = require("./documents");
 const fs = require("fs");
 const openFile = require("open");
+const bodyParser = require("body-parser");
 
 require("dotenv").config();
 
