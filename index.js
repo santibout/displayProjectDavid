@@ -18,7 +18,8 @@ sgMail.setApiKey(process.env.SENDGRID_ZERO_API_KEY);
 
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+aapp.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 app.get("/api", async (req, res) => {
   const client = new MongoClient(uri, { useUnifiedTopology: true });
@@ -107,7 +108,7 @@ app.post("/api/post", async (req, res) => {
     const results = await collection.insertOne(newData);
     // console.log(results);
     // console.log(attachment);
-    res.status(200).send('Email Sent');
+    res.status(200).send("Email Sent");
   } catch (err) {
     console.log("Error Error Error");
     console.log(err);
