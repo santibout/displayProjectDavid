@@ -3,11 +3,10 @@ const sgMail = require("@sendgrid/mail");
 const FormData = require("./models/form");
 const MongoClient = require("mongodb").MongoClient;
 const cors = require("cors");
-const pdfDoc = require("pdfkit");
 const pdf = require("html-pdf");
-const doc = new pdfDoc();
 const template = require("./documents");
 const fs = require("fs");
+const openFile = require("open");
 
 require("dotenv").config();
 
@@ -45,11 +44,30 @@ app.get("/api", async (req, res) => {
   }
 });
 
+app.post("/create-pdf", (req, res) => {
+  console.log("in server this code ran");
+  pdf
+    .create(template(req.body), { format: "Letter", orientation: "landscape" })
+    .toFile("result.pdf", (err) => {
+      if (err) {
+        res.send(Promise.reject());
+      }
+      res.send(Promise.resolve());
+    });
+});
+
+app.get("/fetch-pdf", async (req, res) => {
+  await openFile("result.pdf", { wait: true });
+});
+
 app.post("/api/post", async (req, res) => {
   const client = new MongoClient(uri, { useUnifiedTopology: true });
   try {
     pdf
-      .create(template(req.body.fullName), {})
+      .create(template(req.body), {
+        format: "Letter",
+        orientation: "landscape",
+      })
       .toFile("attachment.pdf", async (err, result) => {
         if (err) {
           result.send(Promise.reject());
@@ -71,26 +89,25 @@ app.post("/api/post", async (req, res) => {
             },
           ],
         };
-        //   sgMail
-        //     .send(msg)
-        //     .then(() => {
-        //       console.log("Email sent");
-        //     })
-        //     .catch((error) => {
-        //       console.log("error error error");
-        //       console.error(error);
-        //     });
-        // });
-
-        // await client.connect();
-        // const database = client.db("cccaa");
-        // const collection = database.collection("form-data");
-        // let newData = new FormData({ ...req.body });
-        // const results = await collection.insertOne(newData);
-        // console.log(results);
-        console.log(attachment)
-        res.status(200).send(attachment);
+        sgMail
+          .send(msg)
+          .then(() => {
+            console.log("Email sent");
+          })
+          .catch((error) => {
+            console.log("error error error");
+            console.error(error);
+          });
       });
+
+    await client.connect();
+    const database = client.db("cccaa");
+    const collection = database.collection("form-data");
+    let newData = new FormData({ ...req.body });
+    const results = await collection.insertOne(newData);
+    // console.log(results);
+    // console.log(attachment);
+    res.status(200).send('Email Sent');
   } catch (err) {
     console.log("Error Error Error");
     console.log(err);
