@@ -53,17 +53,17 @@ app.get("/api", async (req, res) => {
   }
 });
 
-app.post("/create-pdf", (req, res) => {
-  console.log("in server this code ran");
-  pdf
-    .create(template(req.body), { format: "Letter", orientation: "landscape" })
-    .toFile("result.pdf", (err) => {
-      if (err) {
-        res.send(Promise.reject());
-      }
-      res.send(Promise.resolve());
-    });
-});
+// app.post("/create-pdf", (req, res) => {
+//   console.log("in server this code ran");
+//   pdf
+//     .create(template(req.body), { format: "Letter", orientation: "landscape" })
+//     .toFile("result.pdf", (err) => {
+//       if (err) {
+//         res.send(Promise.reject());
+//       }
+//       res.send(Promise.resolve());
+//     });
+// });
 
 app.get("/fetch-pdf", async (req, res) => {
   await openFile("result.pdf", { wait: true });
@@ -85,10 +85,10 @@ app.post("/api/post", async (req, res) => {
 
         const msg = {
           from: "samuel.santibout@gmail.com",
-          to: ["santibout@yahoo.com", "david@kayoventures.com"],
+          to: ["santibout@yahoo.com"],
+          // to: ["santibout@yahoo.com", "david@kayoventures.com"],
           subject: "CCCAA Form Data",
-          text: req.body.toString(),
-          // html: `<h1>See Attachments For Details</h1>`,
+          text: "Attached is the pdf",
           attachments: [
             {
               content: attachment,
@@ -114,8 +114,6 @@ app.post("/api/post", async (req, res) => {
     const collection = database.collection("form-data");
     let newData = new FormData({ ...req.body });
     const results = await collection.insertOne(newData);
-    // console.log(results);
-    // console.log(attachment);
     res.status(200).send("Email Sent");
   } catch (err) {
     console.log("Error Error Error");
