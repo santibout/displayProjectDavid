@@ -18,13 +18,8 @@ require("dotenv").config();
 sgMail.setApiKey(process.env.SENDGRID_ZERO_API_KEY);
 
 app.use(cors());
-app.use(express.json());
+pp.use(express.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
-app.use(
-  bodyParser.json({
-    limit: "20mb",
-  })
-);
 
 app.use(
   bodyParser.urlencoded({
