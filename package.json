@@ -10,6 +10,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": "10.x"
+  },
   "dependencies": {
     "@sendgrid/mail": "^7.4.2",
     "body-parser": "^1.19.0",
