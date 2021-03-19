@@ -4,6 +4,9 @@ const FormData = require("./models/form");
 const MongoClient = require("mongodb").MongoClient;
 const cors = require("cors");
 const pdf = require("html-pdf");
+var options = {
+  format: "Tabloid",
+};
 const template = require("./documents");
 const fs = require("fs");
 const openFile = require("open");
@@ -65,24 +68,29 @@ app.get("/api", async (req, res) => {
 //     });
 // });
 
+app.get("/", (req, res) => {
+  res.send("this.is the home page");
+});
+
 app.get("/fetch-pdf", async (req, res) => {
-  console.log("sending file");
-  await openFile("attachment.pdf", { wait: true });
-  res.send("file sent");
+  try {
+    console.log("sending file asdfasfasf");
+    await openFile("attachment.pdf", { wait: true });
+  } catch (err) {
+    res.throw(err);
+  }
 });
 
 app.post("/api/post", async (req, res) => {
   const client = new MongoClient(uri, { useUnifiedTopology: true });
   try {
     pdf
-      .create(template(req.body), {
-        format: "Letter",
-        orientation: "landscape",
-      })
+      .create(template(req.body), options)
       .toFile("attachment.pdf", async (err, result) => {
         if (err) {
           result.send(Promise.reject());
         }
+        console.log("attach.pdf made");
         const attachment = fs.readFileSync(result.filename).toString("base64");
 
         const msg = {
@@ -109,23 +117,16 @@ app.post("/api/post", async (req, res) => {
             console.error(error);
           });
       });
-
     await client.connect();
-    const database = client.db("cccaa");
-    const collection = database.collection("form-data");
-    let newData = new FormData({ ...req.body });
-    const results = await collection.insertOne(newData);
+    // const database = client.db("cccaa");
+    // const collection = database.collection("form-data");
+    // let newData = new FormData({ ...req.body });
+    // const results = await collection.insertOne(newData);
     res.status(200).send("Email Sent");
   } catch (err) {
-    console.log("Error Error Error");
-    console.log(err);
     res.status(400).send("Error... Error... Error...", err);
   } finally {
-    fs;
     await client.close();
-    fs.unlink("./attachment.pdf", () => {
-      console.log("attachment.pdf deleted");
-    });
   }
 });
 

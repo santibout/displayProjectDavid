@@ -59,7 +59,14 @@ module.exports = (data) => {
     }
   }
   @media print {
-    @page{margin:0}html{margin:0}body{margin:0;-webkit-print-color-adjust:exact}
+    @page{
+      margin:0;
+      scale: 76%;
+    }
+    html {
+      margin:0 }
+      body {
+        margin:0;-webkit-print-color-adjust:exact}
     
     #sidebar {
       display:none
