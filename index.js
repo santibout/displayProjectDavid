@@ -5,7 +5,7 @@ const MongoClient = require("mongodb").MongoClient;
 const cors = require("cors");
 const pdf = require("html-pdf");
 var options = {
-  format: "A4",
+  format: "Tabloid",
   orientation: "portrait",
   margin: "1cm",
 };
