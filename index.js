@@ -7,7 +7,6 @@ const pdf = require("html-pdf");
 var options = {
   format: "Tabloid",
   orientation: "portrait",
-  margin: "1cm",
 };
 const template = require("./documents");
 const fs = require("fs");
