@@ -121,7 +121,11 @@ app.post("/api/post", async (req, res) => {
     console.log(err);
     res.status(400).send("Error... Error... Error...", err);
   } finally {
+    fs;
     await client.close();
+    fs.unlink("./attachment.pdf", () => {
+      console.log("attachment.pdf deleted");
+    });
   }
 });
 
