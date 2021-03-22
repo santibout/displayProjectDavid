@@ -85,12 +85,10 @@ app.post("/api/post", async (req, res) => {
     .then((buffer) => {
       console.log("buffer: ", buffer);
       fs.writeFileSync("attachment.pdf", buffer);
-      const attachment = fs.readFileSync("attachment.pdf");
-      console.log("attachment");
-      console.log(attachment);
+      const attachment = fs.readFileSync("attachment.pdf").toString("base64");
 
       const msg = {
-        // from: "samuel.santibout@gmail.com",
+        from: "samuel.santibout@gmail.com",
         to: ["santibout@yahoo.com", "david@kayoventures.com"],
         subject: "CCCAA Form Data",
         text: "Attached is the pdf",
