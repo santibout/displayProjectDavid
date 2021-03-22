@@ -1,0 +1,64 @@
+		.ar , p{
+			font-family: Arial, Helvetica, sans-serif;
+			margin: 2px;
+		}
+		*{
+			line-height: 1;
+			font-size: 13px;
+		}
+		
+		.heading{
+  			font-family: "Times New Roman", Times, serif;
+		}
+
+
+		.big {
+			font-size: 37px;
+		}
+		hr {
+    		display: block;
+		    height: 1px;
+		    border: 0;
+		    border-top: 1px solid #000;
+		    margin: 0px;
+		    padding: 0;
+		}
+		.modhr{
+    		display: block;
+		    height: 1px;
+		    border: 0;
+		    border-top: 4px solid #000;
+		    margin: 0px;
+		    padding: 0;
+		
+		}
+
+		table.table-bordered{
+    border:1px solid black;
+    
+  		}
+
+  		.vl {
+  border-left: 6px solid green;
+  height: 500px;
+}
+
+		@media (max-width: 576px){
+			#logo{
+				height: 35px;
+				width: 35px;
+			}
+
+			#heading{
+				font-size:18px;
+			}
+			.big {
+			font-size: 25px;
+			}
+			.form {
+				font-size: 8px;
+			}
+			.side {
+				font-size: 8px;
+			}
+		}

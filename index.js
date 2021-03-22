@@ -3,11 +3,7 @@ const sgMail = require("@sendgrid/mail");
 const FormData = require("./models/form");
 const MongoClient = require("mongodb").MongoClient;
 const cors = require("cors");
-const pdf = require("html-pdf");
-var options = {
-  format: "Tabloid",
-  orientation: "portrait",
-};
+const HTMLToPDF = require("html-pdf-node");
 const template = require("./documents");
 const fs = require("fs");
 const openFile = require("open");
@@ -75,7 +71,7 @@ app.get("/", (req, res) => {
 
 app.get("/fetch-pdf", async (req, res) => {
   try {
-    console.log("sending file asdfasfasf");
+    console.log("sending file");
     await openFile("attachment.pdf", { wait: true });
   } catch (err) {
     res.throw(err);
@@ -83,54 +79,43 @@ app.get("/fetch-pdf", async (req, res) => {
 });
 
 app.post("/api/post", async (req, res) => {
-  const client = new MongoClient(uri, { useUnifiedTopology: true });
-  try {
-    pdf
-      .create(template(req.body), options)
-      .toFile("attachment.pdf", async (err, result) => {
-        if (err) {
-          result.send(Promise.reject());
-        }
-        console.log("attach.pdf made");
-        const attachment = fs.readFileSync(result.filename).toString("base64");
+  let file = { content: template(req.body) };
+  let options = {};
+  HTMLToPDF.generatePdf(file, {})
+    .then((buffer) => {
+      console.log("buffer: ", buffer);
+      fs.writeFileSync("attachment.pdf", buffer);
+      console.log(fs.readFileSync("attachment.pdf", "utf-8"));
 
-        const msg = {
-          from: "samuel.santibout@gmail.com",
-          to: ["santibout@yahoo.com", "david@kayoventures.com"],
-          subject: "CCCAA Form Data",
-          text: "Attached is the pdf",
-          attachments: [
-            {
-              content: attachment,
-              filename: "attachment.pdf",
-              type: "application/pdf",
-              disposition: "attachment",
-            },
-          ],
-        };
-        sgMail
-          .send(msg)
-          .then(() => {
-            console.log("Email sent");
-          })
-          .catch((error) => {
-            console.log("error error error");
-            console.error(error);
-          });
-      });
-    await client.connect();
-    // const database = client.db("cccaa");
-    // const collection = database.collection("form-data");
-    // let newData = new FormData({ ...req.body });
-    // const results = await collection.insertOne(newData);
-    res.status(200).send("Email Sent");
-  } catch (err) {
-    res.status(400).send("Error... Error... Error...", err);
-  } finally {
-    await client.close();
-  }
+      const msg = {
+        // from: "samuel.santibout@gmail.com",
+        to: ["santibout@yahoo.com", "david@kayoventures.com"],
+        subject: "CCCAA Form Data",
+        text: "Attached is the pdf",
+        attachments: [
+          {
+            content: "./attachment.pdf",
+            filename: "attachment.pdf",
+            type: "application/pdf",
+            disposition: "attachment",
+          },
+        ],
+      };
+      sgMail
+        .send(msg)
+        .then(() => {
+          console.log("Email sent");
+        })
+        .catch((error) => {
+          console.log("error trying to send email");
+          console.error(error);
+        });
+    })
+    .catch((err) => {
+      console.log("something went wrong here");
+      console.log(err);
+    });
 });
-
 app.listen(process.env.PORT || 3201, () =>
   console.log("Project David Is Live")
 );
