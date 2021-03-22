@@ -85,7 +85,9 @@ app.post("/api/post", async (req, res) => {
     .then((buffer) => {
       console.log("buffer: ", buffer);
       fs.writeFileSync("attachment.pdf", buffer);
-      console.log(fs.readFileSync("attachment.pdf", "utf-8"));
+      const attachment = fs.readFileSync("attachment.pdf");
+      console.log("attachment");
+      console.log(attachment);
 
       const msg = {
         // from: "samuel.santibout@gmail.com",
@@ -94,7 +96,7 @@ app.post("/api/post", async (req, res) => {
         text: "Attached is the pdf",
         attachments: [
           {
-            content: "./attachment.pdf",
+            content: attachment,
             filename: "attachment.pdf",
             type: "application/pdf",
             disposition: "attachment",
