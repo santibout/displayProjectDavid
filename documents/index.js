@@ -337,7 +337,7 @@ display: table-cell !important;
 		  
 			  <div class="row text-center">
 			  <div class="col-6 col-sm-3 text-center mb-2">
-				  <p>Item1</p>
+				  <p>${communityCollege}</p>
 				  <hr>
 				  <p>Your Present College</p>
 			  </div>
