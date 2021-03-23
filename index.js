@@ -8,9 +8,7 @@ const template = require("./documents");
 const fs = require("fs");
 const openFile = require("open");
 const bodyParser = require("body-parser");
-const browser = await puppeteer.launch({
-  ignoreDefaultArgs: ["--disable-extensions"],
-});
+
 require("dotenv").config();
 
 const app = express();
@@ -97,7 +95,9 @@ app.post("/api/post", async (req, res) => {
       console.log("buffer: ", buffer);
       fs.writeFileSync("attachment.pdf", buffer);
       const attachment = fs.readFileSync("attachment.pdf").toString("base64");
-
+      // const browser = await puppeteer.launch({
+      //   ignoreDefaultArgs: ["--disable-extensions"],
+      // });
       const msg = {
         from: "samuel.santibout@gmail.com",
         to: ["santibout@yahoo.com", "david@kayoventures.com"],
