@@ -17,7 +17,7 @@ const uri = process.env.MONGODB_URI;
 require("dotenv").config();
 sgMail.setApiKey(process.env.SENDGRID_ZERO_API_KEY);
 
-app.use(cors());
+app.use(cors({origin: 'https://santibout.github.io/cccaa/'}));
 app.use(express.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
