@@ -90,6 +90,7 @@ app.post("/api/post", async (req, res) => {
       const msg = {
         from: "samuel.santibout@gmail.com",
         to: ["santibout@yahoo.com", "david@kayoventures.com"],
+        // to: ["santibout@yahoo.com"],
         subject: "CCCAA Form Data",
         text: "Attached is the pdf",
         attachments: [
