@@ -13,7 +13,8 @@ module.exports = (data) => {
     currentDate,
     highSchool,
     highSchoolCityState,
-    dob,
+	dob,
+	highSchoolMonthYearGraduation,
     ccountForTimesAfterHS,
     previousCommunityCollege,
     previousCommunityCollegeStartMonth,
@@ -342,12 +343,12 @@ display: table-cell !important;
 				  <p>Your Present College</p>
 			  </div>
 			  <div class="col-6 col-sm-3 mb-2">
-				  <p>Item2</p>
+				  <p>${athleticConference}</p>
 				  <hr>
 				  <p>Your Present Conference</p>
 			  </div>
 			  <div class="col-6 col-sm-3 mb-sm-2">
-				  <p>Item3</p>
+				  <p>${fullName}</p>
 				  <hr>
 				  <p>Sport This Season</p>
 			  </div>
@@ -363,21 +364,21 @@ display: table-cell !important;
   
 			  <div class="row">
 			  <div class="col-9 col-sm-4 text-center mb-sm-2 text-center">
-				  <p>Item4, Item4a, Item5a</p>
+				  <p>${fullName}</p>
 				  <hr>
 				  <p>Last Name, First, MI</p>
 			  </div>
 			  <div class="col-3 col-sm-2 mb-sm-2">
-				  <input type="checkbox" value="male"> Male <br>
-				  <input type="checkbox" value="female"> Female
+				  <input ${gender === "male" && 'checked'} type="checkbox" value="male"> Male <br>
+				  <input ${gender === "female" && 'checked'} type="checkbox" value="female"> Female
 			  </div>
 			  <div class="col-6 col-sm-3 mb-sm-2 text-center">
-				  <p>Item7</p>
+				  <p>${studentId}</p>
 				  <hr>
 				  <p>Student ID#</p>
 			  </div>
 			  <div class="col-6 col-sm-3 mb-sm-2 text-center">
-				  <p>Item8</p>
+				  <p>${currentDate}</p>
 				  <hr>
 				  <p>Today's Date</p>
   
@@ -386,18 +387,18 @@ display: table-cell !important;
   
 			  <div class="row">
 			  <div class="col-12 col-sm-6 text-center mb-sm-2 text-center">
-				  <p>Item9, Item9a, Item9b, Item9c, Item9d</p>
+				  <p>${streetAddress} ${cityStateZip}</p>
 				  <hr>
 				  <p>Present Address, Street, City, State, Zip Code</p>
 			  </div>
 			  
 			  <div class="col-6 col-sm-3 mb-sm-2 text-center">
-				  <p>Item10</p>
+				  <p>${phoneNumber}</p>
 				  <hr>
 				  <p>Telephone #</p>
 			  </div>
 			  <div class="col-6 col-sm-3 mb-sm-2 text-center">
-				  <p>Item11</p>
+				  <p>${dob}</p>
 				  <hr>
 				  <p> Date of Birth</p>
   
@@ -406,13 +407,13 @@ display: table-cell !important;
   
 			  <div class="row">
 			  <div class="col-9 col-sm-9 text-center mb-sm-2 text-center">
-				  <p>Item12, Item12a, Item13b, Item13c </p>
+				  <p>${highSchool} ${highSchoolCityState}</p>
 				  <hr>
 				  <p>High School Last Attended, City, State, Zip Code</p>
 			  </div>
 			  
 			  <div class="col-3 col-sm-3 mb-sm-2 text-center">
-				  <p>Item13</p>
+				  <p>${highSchoolMonthYearGraduation}</p>
 				  <hr>
 				  <p>Last Date Attended</p>
 			  </div>
@@ -434,11 +435,11 @@ display: table-cell !important;
 					  <td>Yr</td>
 				  </tr>
 				  <tr>
-					  <td>M1</td>
-					  <td>M2</td>
+					  <td>${secondCollegeStartMonthYear}</td>
+					  <td>${secondCollegeStopMonthYear}</td>
 					  <td>M3</td>
 					  <td>M4</td>
-					  <td>Item13</td>
+					  <td>${secondCollegeName}</td>
 				  </tr>
 				  <tr>
 					  <td>D1</td>
