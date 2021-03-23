@@ -8,7 +8,9 @@ const template = require("./documents");
 const fs = require("fs");
 const openFile = require("open");
 const bodyParser = require("body-parser");
-
+const browser = await puppeteer.launch({
+  ignoreDefaultArgs: ["--disable-extensions"],
+});
 require("dotenv").config();
 
 const app = express();
