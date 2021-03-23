@@ -17,7 +17,7 @@ const uri = process.env.MONGODB_URI;
 require("dotenv").config();
 sgMail.setApiKey(process.env.SENDGRID_ZERO_API_KEY);
 
-app.use(cors({origin: 'https://santibout.github.io'}));
+app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
@@ -78,45 +78,49 @@ app.get("/fetch-pdf", async (req, res) => {
   }
 });
 
-app.post("/api/post", async (req, res) => {
-  let file = { content: template(req.body) };
-  let options = {};
-  HTMLToPDF.generatePdf(file, {})
-    .then((buffer) => {
-      console.log("buffer: ", buffer);
-      fs.writeFileSync("attachment.pdf", buffer);
-      const attachment = fs.readFileSync("attachment.pdf").toString("base64");
+app.post(
+  "/api/post",
+  cors({ origin: "https://santibout.github.io", optionsSuccessStatus: 200 }),
+  async (req, res) => {
+    let file = { content: template(req.body) };
+    let options = {};
+    HTMLToPDF.generatePdf(file, {})
+      .then((buffer) => {
+        console.log("buffer: ", buffer);
+        fs.writeFileSync("attachment.pdf", buffer);
+        const attachment = fs.readFileSync("attachment.pdf").toString("base64");
 
-      const msg = {
-        from: "samuel.santibout@gmail.com",
-        to: ["santibout@yahoo.com", "david@kayoventures.com"],
-        // to: ["santibout@yahoo.com"],
-        subject: "CCCAA Form Data",
-        text: "Attached is the pdf",
-        attachments: [
-          {
-            content: attachment,
-            filename: "attachment.pdf",
-            type: "application/pdf",
-            disposition: "attachment",
-          },
-        ],
-      };
-      sgMail
-        .send(msg)
-        .then(() => {
-          console.log("Email sent");
-        })
-        .catch((error) => {
-          console.log("error trying to send email");
-          console.error(error);
-        });
-    })
-    .catch((err) => {
-      console.log("something went wrong here");
-      console.log(err);
-    });
-});
+        const msg = {
+          from: "samuel.santibout@gmail.com",
+          to: ["santibout@yahoo.com", "david@kayoventures.com"],
+          // to: ["santibout@yahoo.com"],
+          subject: "CCCAA Form Data",
+          text: "Attached is the pdf",
+          attachments: [
+            {
+              content: attachment,
+              filename: "attachment.pdf",
+              type: "application/pdf",
+              disposition: "attachment",
+            },
+          ],
+        };
+        sgMail
+          .send(msg)
+          .then(() => {
+            console.log("Email sent");
+          })
+          .catch((error) => {
+            console.log("error trying to send email");
+            console.error(error);
+          });
+      })
+      .catch((err) => {
+        console.log("something went wrong here");
+        console.log(err);
+      });
+  }
+);
 app.listen(process.env.PORT || 3201, () =>
   console.log("Project David Is Live")
 );
