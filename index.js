@@ -87,7 +87,7 @@ app.get("/fetch-pdf", async (req, res) => {
 });
 
 app.post("/api/post", async (req, res) => {
-  console.log("post running");
+  console.log("post running!");
   let file = { content: template(req.body) };
   let options = {};
   HTMLToPDF.generatePdf(file, {})
