@@ -15,16 +15,41 @@ module.exports = (data) => {
     highSchoolCityState,
 	dob,
 	highSchoolMonthYearGraduation,
-    ccountForTimesAfterHS,
-    previousCommunityCollege,
-    previousCommunityCollegeStartMonth,
-    previousCommunityCollegeStartYear,
-    hasAttendedAnotherCollege,
-    secondCollegeAttended,
-    secondCollegeName,
-    secondCollegeStartMonthYear,
-    secondCollegeStopMonthYear,
-    hasAttendedAnotherCollege2,
+	afterHSOneName,
+	afterHSOneStartMonth,
+	afterHSOneStartYear,
+	afterHSOneEndMonth,
+	afterHSOneEndYear,
+	afterHSTwoName,
+	afterHSTwoStartMonth,
+	afterHSTwoStartYear,
+	afterHSTwoEndMonth,
+	afterHSTwoEndYear,
+	afterHSThreeStartMonth,
+	afterHSThreeStartYear,
+	afterHSThreeEndMonth,
+	afterHSThreeEndYear,
+	afterHSThreeName,
+	afterHSFourStartMonth,
+	afterHSFourStartYear,
+	afterHSFourEndMonth,
+	afterHSFourEndYear,
+	afterHSFourName,
+	secondSport,
+	secondSportCollege,
+	secondSportLevel,
+	secondSportSemester,
+	secondSportYear,
+	thirdSport,
+	thirdSportCollege,
+	thirdSportLevel,
+	thirdSportSemester,
+	thirdSportYear,
+	fourthSport,
+	fourthSportCollege,
+	fourthSportLevel,
+	fourthSportSemester,
+	fourthSportYear,
   } = data;
   return `
   <!DOCTYPE html>
@@ -348,7 +373,7 @@ display: table-cell !important;
 				  <p>Your Present Conference</p>
 			  </div>
 			  <div class="col-6 col-sm-3 mb-sm-2">
-				  <p>${fullName}</p>
+				  <p>${sport}</p>
 				  <hr>
 				  <p>Sport This Season</p>
 			  </div>
@@ -435,32 +460,32 @@ display: table-cell !important;
 					  <td>Yr</td>
 				  </tr>
 				  <tr>
-					  <td>${secondCollegeStartMonthYear}</td>
-					  <td>${secondCollegeStopMonthYear}</td>
-					  <td>M3</td>
-					  <td>M4</td>
-					  <td>${secondCollegeName}</td>
+					  <td>${afterHSOneStartMonth}</td>
+					  <td>${afterHSOneStartYear}</td>
+					  <td>${afterHSOneEndMonth}</td>
+					  <td>${afterHSOneEndYear}</td>
+					  <td>${afterHSOneName}</td>
 				  </tr>
 				  <tr>
-					  <td>D1</td>
-					  <td>D2</td>
-					  <td>D3</td>
-					  <td>D4</td>
-					  <td>Item14</td>
+					  <td>${afterHSTwoStartMonth}</td>
+					  <td>${afterHSTwoStartYear}</td>
+					  <td>${afterHSTwoEndMonth}</td>
+					  <td>${afterHSTwoEndYear}</td>
+					  <td>${afterHSTwoName}</td>
 				  </tr>
 				  <tr>
-					  <td>F1</td>
-					  <td>F2</td>
-					  <td>F3</td>
-					  <td>F4</td>
-					  <td>Item15</td>
+					  <td>${afterHSThreeStartMonth}</td>
+					  <td>${afterHSThreeStartYear}</td>
+					  <td>${afterHSThreeEndMonth}</td>
+					  <td>${afterHSThreeEndYear}</td>
+					  <td>${afterHSThreeName}</td>
 				  </tr>
 				  <tr>
-					  <td>J1</td>
-					  <td>J2</td>
-					  <td>J3</td>
-					  <td>J4</td>
-					  <td>Item16</td>
+					  <td>${afterHSFourStartMonth}</td>
+					  <td>${afterHSFourStartYear}</td>
+					  <td>${afterHSFourEndMonth}</td>
+					  <td>${afterHSFourEndYear}</td>
+					  <td>${afterHSFourName}</td>
 				  </tr>
 				  
 			  </table>
@@ -475,25 +500,25 @@ display: table-cell !important;
 					  <td>Year</td>
 				  </tr>
 				  <tr>
-					  <td>Item17</td>
-					  <td>Item18</td>
-					  <td>Item19</td>
-					  <td>Item20</td>
-					  <td>Item21</td>
+					  <td>${secondSport}</td>
+					  <td>${secondSportCollege}</td>
+					  <td>${secondSportLevel}</td>
+					  <td>${secondSportSemester}</td>
+					  <td>${secondSportYear}</td>
 				  </tr>
 				  <tr>
-					  <td>Item22</td>
-					  <td>Item23</td>
-					  <td>Item24</td>
-					  <td>Item25</td>
-					  <td>Item26</td>
+				  <td>${thirdSport}</td>
+				  <td>${thirdSportCollege}</td>
+				  <td>${thirdSportLevel}</td>
+				  <td>${thirdSportSemester}</td>
+				  <td>${thirdSportYear}</td>
 				  </tr>
 				  <tr>
-					  <td>Item27</td>
-					  <td>Item28</td>
-					  <td>Item29</td>
-					  <td>Item30</td>
-					  <td>Item31</td>
+					  <td>${fourthSport}</td>
+					  <td>${fourthSportCollege}</td>
+					  <td>${fourthSportLevel}</td>
+					  <td>${fourthSportSemester}</td>
+					  <td>${fourthSportYear}</td>
 				  </tr>
 				  <tr>
 					  <td>Item32</td>
