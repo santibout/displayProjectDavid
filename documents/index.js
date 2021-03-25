@@ -1,3 +1,4 @@
+const img = "server/documents/Order5/or.png";
 module.exports = (data) => {
   const today = new Date();
   const {
@@ -13,43 +14,43 @@ module.exports = (data) => {
     currentDate,
     highSchool,
     highSchoolCityState,
-	dob,
-	highSchoolMonthYearGraduation,
-	afterHSOneName,
-	afterHSOneStartMonth,
-	afterHSOneStartYear,
-	afterHSOneEndMonth,
-	afterHSOneEndYear,
-	afterHSTwoName,
-	afterHSTwoStartMonth,
-	afterHSTwoStartYear,
-	afterHSTwoEndMonth,
-	afterHSTwoEndYear,
-	afterHSThreeStartMonth,
-	afterHSThreeStartYear,
-	afterHSThreeEndMonth,
-	afterHSThreeEndYear,
-	afterHSThreeName,
-	afterHSFourStartMonth,
-	afterHSFourStartYear,
-	afterHSFourEndMonth,
-	afterHSFourEndYear,
-	afterHSFourName,
-	secondSport,
-	secondSportCollege,
-	secondSportLevel,
-	secondSportSemester,
-	secondSportYear,
-	thirdSport,
-	thirdSportCollege,
-	thirdSportLevel,
-	thirdSportSemester,
-	thirdSportYear,
-	fourthSport,
-	fourthSportCollege,
-	fourthSportLevel,
-	fourthSportSemester,
-	fourthSportYear,
+    dob,
+    highSchoolMonthYearGraduation,
+    afterHSOneName,
+    afterHSOneStartMonth,
+    afterHSOneStartYear,
+    afterHSOneEndMonth,
+    afterHSOneEndYear,
+    afterHSTwoName,
+    afterHSTwoStartMonth,
+    afterHSTwoStartYear,
+    afterHSTwoEndMonth,
+    afterHSTwoEndYear,
+    afterHSThreeStartMonth,
+    afterHSThreeStartYear,
+    afterHSThreeEndMonth,
+    afterHSThreeEndYear,
+    afterHSThreeName,
+    afterHSFourStartMonth,
+    afterHSFourStartYear,
+    afterHSFourEndMonth,
+    afterHSFourEndYear,
+    afterHSFourName,
+    secondSport,
+    secondSportCollege,
+    secondSportLevel,
+    secondSportSemester,
+    secondSportYear,
+    thirdSport,
+    thirdSportCollege,
+    thirdSportLevel,
+    thirdSportSemester,
+    thirdSportYear,
+    fourthSport,
+    fourthSportCollege,
+    fourthSportLevel,
+    fourthSportSemester,
+    fourthSportYear,
   } = data;
   return `
   <!DOCTYPE html>
@@ -333,12 +334,15 @@ display: table-cell !important;
 }
 }
 
-
+.my-container {
+	width: 85%;
+	margin: 20px auto 0 auto;
+}
   </style>
-	  <div class="container mt-sm-2">
+	  <div class="my-container mt-sm-2">
 		  <div class="row ">
 			  <div class="mt-md-2 col-2 d-flex justify-content-center">
-				  <img id="logo" src="or.png" height="50px" width="50px">
+				  <img id="logo" src='https://pbs.twimg.com/profile_images/808586459338809344/tzvhSRSh.jpg' height="50px" width="50px">
 				  
 			  </div>
 			  <div class="col-8 d-flex justify-content-center text-center">
@@ -394,8 +398,12 @@ display: table-cell !important;
 				  <p>Last Name, First, MI</p>
 			  </div>
 			  <div class="col-3 col-sm-2 mb-sm-2">
-				  <input ${gender === "male" && 'checked'} type="checkbox" value="male"> Male <br>
-				  <input ${gender === "female" && 'checked'} type="checkbox" value="female"> Female
+				  <input ${
+            gender === "male" && "checked"
+          } type="checkbox" value="male"> Male <br>
+				  <input ${
+            gender === "female" && "checked"
+          } type="checkbox" value="female"> Female
 			  </div>
 			  <div class="col-6 col-sm-3 mb-sm-2 text-center">
 				  <p>${studentId}</p>
