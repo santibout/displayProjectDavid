@@ -88,6 +88,7 @@ app.get("/fetch-pdf", async (req, res) => {
 
 app.post("/api/post", async (req, res) => {
   console.log("post running!");
+  console.log(req.body);
   let file = { content: template(req.body) };
   let options = {};
   HTMLToPDF.generatePdf(file, {})
@@ -95,11 +96,11 @@ app.post("/api/post", async (req, res) => {
       console.log("buffer: ", buffer);
       fs.writeFileSync("attachment.pdf", buffer);
       const attachment = fs.readFileSync("attachment.pdf").toString("base64");
-     
+
       const msg = {
         from: "samuel.santibout@gmail.com",
-        to: ["santibout@yahoo.com", "david@kayoventures.com", 'chromiumxyz@gmail.com'],
-        // to: ["santibout@yahoo.com"],
+        // to: ["santibout@yahoo.com", "david@kayoventures.com", 'chromiumxyz@gmail.com'],
+        to: ["santibout@yahoo.com"],
         subject: "CCCAA Form Data",
         text: "Attached is the pdf",
         attachments: [
@@ -111,15 +112,15 @@ app.post("/api/post", async (req, res) => {
           },
         ],
       };
-      sgMail
-        .send(msg)
-        .then(() => {
-          console.log("Email sent");
-        })
-        .catch((error) => {
-          console.log("error trying to send email");
-          console.error(error);
-        });
+      // sgMail
+      //   .send(msg)
+      //   .then(() => {
+      //     console.log("Email sent");
+      //   })
+      //   .catch((error) => {
+      //     console.log("error trying to send email");
+      //     console.error(error);
+      //   });
     })
     .catch((err) => {
       console.log("something went wrong here");

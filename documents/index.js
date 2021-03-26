@@ -16,6 +16,7 @@ module.exports = (data) => {
     highSchoolCityState,
     dob,
     highSchoolMonthYearGraduation,
+
     afterHSOneName,
     afterHSOneStartMonth,
     afterHSOneStartYear,
@@ -51,7 +52,23 @@ module.exports = (data) => {
     fourthSportLevel,
     fourthSportSemester,
     fourthSportYear,
+
+    afterHS,
   } = data;
+
+  class AfterHSTemplate {
+    constructor(startMonth, startYear, endMonth, endYear, name) {
+      this.startMonth = startMonth;
+      this.startYear = startYear;
+      this.endMonth = endMonth;
+      this.endYear = endYear;
+      this.name = name;
+    }
+  }
+  const arr = [...afterHS];
+  console.log("Arr");
+  console.log(arr);
+
   return `
   <!DOCTYPE html>
   <html>
@@ -338,6 +355,10 @@ display: table-cell !important;
 	width: 85%;
 	margin: 20px auto 0 auto;
 }
+.tr { 
+	min-height: 12px;
+	display: inline-block;
+}
   </style>
 	  <div class="my-container mt-sm-2">
 		  <div class="row ">
@@ -468,33 +489,113 @@ display: table-cell !important;
 					  <td>Yr</td>
 				  </tr>
 				  <tr>
-					  <td>${afterHSOneStartMonth}</td>
-					  <td>${afterHSOneStartYear}</td>
-					  <td>${afterHSOneEndMonth}</td>
-					  <td>${afterHSOneEndYear}</td>
-					  <td>${afterHSOneName}</td>
+					  <td>
+						  <div class='tr'> 
+						  	${arr[0] ? arr[0].startMonth : ""}
+						  </div>
+					   </td>
+					   <td>
+						  <div class='tr'> 
+						  	${arr[0] ? arr[0].startYear : ""}
+							</div>
+						</td>
+						<td>
+					  	  <div class='tr'> 
+					  		${arr[0] ? arr[0].endMonth : ""}
+							</div>
+						</td>
+						<td>
+				  		  <div class='tr'> 
+				  			${arr[0] ? arr[0].endYear : ""}
+						  </div>
+						</td>
+						<td>
+						  <div class='tr'> 
+							${arr[0] ? arr[0].name : ""}
+						  </div>
+					  </td>
 				  </tr>
 				  <tr>
-					  <td>${afterHSTwoStartMonth}</td>
-					  <td>${afterHSTwoStartYear}</td>
-					  <td>${afterHSTwoEndMonth}</td>
-					  <td>${afterHSTwoEndYear}</td>
-					  <td>${afterHSTwoName}</td>
+				  	<td>
+				  		<div class='tr'> 
+					  		${arr[1] ? arr[1].startMonth : ""}
+						</div>
+					</td>
+					<td>
+				  		<div class='tr'> 
+					 		 ${arr[1] ? arr[1].startYear : ""}
+						</div>
+					</td>
+					<td>
+						<div class='tr'> 
+					  		${arr[1] ? arr[1].endMonth : ""}
+						</div>
+					</td>
+					<td>
+						<div class='tr'> 
+					  		${arr[1] ? arr[1].endYear : ""}
+						</div>
+					</td>
+					<td>
+						<div class='tr'> 
+							${arr[1] ? arr[1].name : ""}
+					  	</div>
+			  		</td>
 				  </tr>
 				  <tr>
-					  <td>${afterHSThreeStartMonth}</td>
-					  <td>${afterHSThreeStartYear}</td>
-					  <td>${afterHSThreeEndMonth}</td>
-					  <td>${afterHSThreeEndYear}</td>
-					  <td>${afterHSThreeName}</td>
-				  </tr>
-				  <tr>
-					  <td>${afterHSFourStartMonth}</td>
-					  <td>${afterHSFourStartYear}</td>
-					  <td>${afterHSFourEndMonth}</td>
-					  <td>${afterHSFourEndYear}</td>
-					  <td>${afterHSFourName}</td>
-				  </tr>
+				  	<td>
+						<div class='tr'> 
+							${arr[2] ? arr[2].startMonth : ""}
+						</div>
+					  </td>
+					  <td>
+					  	<div class='tr'> 
+						  ${arr[2] ? arr[2].startYear : ""}
+						</div>
+					</td>
+					<td>
+						<div class='tr'> 
+						  ${arr[2] ? arr[2].endMonth : ""}
+						</div>
+					</td>
+					<td>
+						<div class='tr'> 
+						  ${arr[2] ? arr[2].endYear : ""}
+						</div>
+					</td>
+					<td>
+						<div class='tr'> 
+							${arr[2] ? arr[2].name : ""}
+					  	</div>
+				  </td>
+			  </tr>
+			  <tr>
+			  	<td>
+					<div class='tr'> 
+						${arr[3] ? arr[3].startMonth : ""}
+					</div>
+				</td>
+				<td>
+				  <div class='tr'> 
+					  ${arr[3] ? arr[3].startYear : ""}
+					</div>
+				</td>
+				<td>
+					<div class='tr'> 
+					  ${arr[3] ? arr[3].endMonth : ""}
+					</div>
+				</td>
+				<td>
+					<div class='tr'> 
+						${arr[3] ? arr[3].endYear : ""}
+					</div>
+				</td>
+				<td>
+					<div class='tr'> 
+						${arr[3] ? arr[3].name : ""}
+					  </div>
+			  </td>
+		  </tr>
 				  
 			  </table>
 			  <p>Including this college and this season, list all of the colleges and sports in which you have <b>practiced, scrimmaged, or competed</b>, including <b>club sports, JV, and varsity contests</b> since high school: (If you only practiced or scrimmaged in a sport, please state.)</p>
@@ -508,7 +609,7 @@ display: table-cell !important;
 					  <td>Year</td>
 				  </tr>
 				  <tr>
-					  <td>${secondSport}</td>
+					  <td>${secondSport ? secondSport : ''}</td>
 					  <td>${secondSportCollege}</td>
 					  <td>${secondSportLevel}</td>
 					  <td>${secondSportSemester}</td>
@@ -545,7 +646,7 @@ display: table-cell !important;
 					  <table class="table table-bordered table-sm" style="margin-bottom:0px;">
 						  <tr>
 							  <td></td>
-							  <td>10/12/20</td>
+							  <td></td>
 						  </tr>
 						  <tr>
 							  <td>Student-Athlete’s Signature</td>
