@@ -66,8 +66,8 @@ module.exports = (data) => {
     }
   }
   const arr = [...afterHS];
-  console.log("Arr");
-  console.log(arr);
+//   console.log("Arr");
+//   console.log(arr);
 
   return `
   <!DOCTYPE html>

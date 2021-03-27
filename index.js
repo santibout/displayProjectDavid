@@ -46,8 +46,9 @@ app.get("/api", async (req, res) => {
 
     const data = await collection.find().toArray();
     if (data) {
-      console.log("data: ......");
-      console.log(data);
+      console.log("Request: /api => Data Received");
+      // console.log("data: ......");
+      // console.log(data);
     }
 
     res.status(200).send(data);
@@ -88,12 +89,12 @@ app.post("/api/post", async (req, res) => {
 
       const msg = {
         from: "samuel.santibout@gmail.com",
-        // to: [
-        //   "santibout@yahoo.com",
-        //   "david@kayoventures.com",
-        //   "chromiumxyz@gmail.com",
-        // ],
-        to: ["santibout@yahoo.com"],
+        to: [
+          "santibout@yahoo.com",
+          "david@kayoventures.com",
+          "chromiumxyz@gmail.com",
+        ],
+        // to: ["santibout@yahoo.com"],
         subject: "CCCAA Form Data",
         text: "Attached is the pdf",
         attachments: [
@@ -105,15 +106,15 @@ app.post("/api/post", async (req, res) => {
           },
         ],
       };
-      sgMail
-        .send(msg)
-        .then(() => {
-          console.log("Email sent");
-        })
-        .catch((error) => {
-          console.log("error trying to send email");
-          console.error(error);
-        });
+      // sgMail
+      //   .send(msg)
+      //   .then(() => {
+      //     console.log("Email sent");
+      //   })
+      //   .catch((error) => {
+      //     console.log("error trying to send email");
+      //     console.error(error);
+      //   });
     })
     .catch((err) => {
       console.log("something went wrong here");
