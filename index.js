@@ -20,7 +20,14 @@ sgMail.setApiKey(process.env.SENDGRID_ZERO_API_KEY);
 app.use(express.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(cors());
-
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "https://santibout.github.io");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 app.use(
   bodyParser.urlencoded({
     limit: "20mb",
@@ -67,16 +74,13 @@ app.get("/fetch-pdf", async (req, res) => {
 });
 
 app.post("/api/post", async (req, res) => {
+  const client = new MongoClient(uri, { useUnifiedTopology: true });
   await client.connect();
   const database = client.db("cccaa");
   const collection = database.collection("form-data");
   let newData = new FormData({ ...req.body });
   const results = await collection.insertOne(newData);
   await client.connect();
-  const database = client.db("cccaa");
-  const collection = database.collection("form-data");
-  let newData = new FormData({ ...req.body });
-  const results = await collection.insertOne(newData);
   let file = { content: template(req.body) };
   HTMLToPDF.generatePdf(file, {})
     .then((buffer) => {
