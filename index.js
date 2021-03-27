@@ -20,14 +20,6 @@ sgMail.setApiKey(process.env.SENDGRID_ZERO_API_KEY);
 app.use(express.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(cors());
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://santibout.github.io");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
 
 app.use(
   bodyParser.urlencoded({
@@ -61,18 +53,6 @@ app.get("/api", async (req, res) => {
   }
 });
 
-// app.post("/create-pdf", (req, res) => {
-//   console.log("in server this code ran");
-//   pdf
-//     .create(template(req.body), { format: "Letter", orientation: "landscape" })
-//     .toFile("result.pdf", (err) => {
-//       if (err) {
-//         res.send(Promise.reject());
-//       }
-//       res.send(Promise.resolve());
-//     });
-// });
-
 app.get("/", (req, res) => {
   res.send("this.is the home page");
 });
@@ -87,20 +67,30 @@ app.get("/fetch-pdf", async (req, res) => {
 });
 
 app.post("/api/post", async (req, res) => {
-  console.log("post running!");
-  console.log(req.body);
+  await client.connect();
+  const database = client.db("cccaa");
+  const collection = database.collection("form-data");
+  let newData = new FormData({ ...req.body });
+  const results = await collection.insertOne(newData);
+  await client.connect();
+  const database = client.db("cccaa");
+  const collection = database.collection("form-data");
+  let newData = new FormData({ ...req.body });
+  const results = await collection.insertOne(newData);
   let file = { content: template(req.body) };
-  let options = {};
   HTMLToPDF.generatePdf(file, {})
     .then((buffer) => {
-      console.log("buffer: ", buffer);
       fs.writeFileSync("attachment.pdf", buffer);
       const attachment = fs.readFileSync("attachment.pdf").toString("base64");
 
       const msg = {
         from: "samuel.santibout@gmail.com",
-        // to: ["santibout@yahoo.com", "david@kayoventures.com", 'chromiumxyz@gmail.com'],
-        to: ["santibout@yahoo.com"],
+        to: [
+          "santibout@yahoo.com",
+          "david@kayoventures.com",
+          "chromiumxyz@gmail.com",
+        ],
+        // to: ["santibout@yahoo.com"],
         subject: "CCCAA Form Data",
         text: "Attached is the pdf",
         attachments: [
@@ -112,15 +102,15 @@ app.post("/api/post", async (req, res) => {
           },
         ],
       };
-      // sgMail
-      //   .send(msg)
-      //   .then(() => {
-      //     console.log("Email sent");
-      //   })
-      //   .catch((error) => {
-      //     console.log("error trying to send email");
-      //     console.error(error);
-      //   });
+      sgMail
+        .send(msg)
+        .then(() => {
+          console.log("Email sent");
+        })
+        .catch((error) => {
+          console.log("error trying to send email");
+          console.error(error);
+        });
     })
     .catch((err) => {
       console.log("something went wrong here");
