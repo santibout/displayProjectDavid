@@ -105,15 +105,15 @@ app.post("/api/post", async (req, res) => {
           },
         ],
       };
-      // sgMail
-      //   .send(msg)
-      //   .then(() => {
-      //     console.log("Email sent");
-      //   })
-      //   .catch((error) => {
-      //     console.log("error trying to send email");
-      //     console.error(error);
-      //   });
+      sgMail
+        .send(msg)
+        .then(() => {
+          console.log("Email sent");
+        })
+        .catch((error) => {
+          console.log("error trying to send email");
+          console.error(error);
+        });
     })
     .catch((err) => {
       console.log("something went wrong here");
