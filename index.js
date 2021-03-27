@@ -80,7 +80,6 @@ app.post("/api/post", async (req, res) => {
   const collection = database.collection("form-data");
   let newData = new FormData({ ...req.body });
   const results = await collection.insertOne(newData);
-  await client.connect();
   let file = { content: template(req.body) };
   HTMLToPDF.generatePdf(file, {})
     .then((buffer) => {
