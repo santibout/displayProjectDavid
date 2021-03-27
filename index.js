@@ -74,6 +74,7 @@ app.get("/fetch-pdf", async (req, res) => {
 });
 
 app.post("/api/post", async (req, res) => {
+  console.log(req.body);
   const client = new MongoClient(uri, { useUnifiedTopology: true });
   await client.connect();
   const database = client.db("cccaa");

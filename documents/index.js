@@ -66,8 +66,8 @@ module.exports = (data) => {
     }
   }
   const arr = [...afterHS];
-//   console.log("Arr");
-//   console.log(arr);
+  //   console.log("Arr");
+  //   console.log(arr);
 
   return `
   <!DOCTYPE html>
@@ -609,25 +609,25 @@ display: table-cell !important;
 					  <td>Year</td>
 				  </tr>
 				  <tr>
-					  <td>${secondSport ? secondSport : ''}</td>
-					  <td>${secondSportCollege}</td>
-					  <td>${secondSportLevel}</td>
-					  <td>${secondSportSemester}</td>
-					  <td>${secondSportYear}</td>
+					  <td>${secondSport ? secondSport : ""}</td>
+					  <td>${secondSportCollege ? secondSportCollege : ""}</td>
+					  <td>${secondSportLevel ? secondSportLevel : ""}</td>
+					  <td>${secondSportSemester ? secondSportSemester : ""}</td>
+					  <td>${secondSportYear ? secondSportYear : ""}</td>
 				  </tr>
 				  <tr>
-				  <td>${thirdSport}</td>
-				  <td>${thirdSportCollege}</td>
-				  <td>${thirdSportLevel}</td>
-				  <td>${thirdSportSemester}</td>
-				  <td>${thirdSportYear}</td>
+				  <td>${thirdSport ? thirdSport : ""}</td>
+				  <td>${thirdSportCollege ? thirdSportCollege : ""}</td>
+				  <td>${thirdSportLevel ? thirdSportLevel : ""}</td>
+				  <td>${thirdSportSemester ? thirdSportSemester : ""}</td>
+				  <td>${thirdSportYear ? thirdSportYear : ""}</td>
 				  </tr>
 				  <tr>
-					  <td>${fourthSport}</td>
-					  <td>${fourthSportCollege}</td>
-					  <td>${fourthSportLevel}</td>
-					  <td>${fourthSportSemester}</td>
-					  <td>${fourthSportYear}</td>
+					  <td>${fourthSport ? fourthSport: ""}</td>
+					  <td>${fourthSportCollege? fourthSportCollege : ""}</td>
+					  <td>${fourthSportLevel ? fourthSportLevel : ""}</td>
+					  <td>${fourthSportSemester ? fourthSportSemester : ""}</td>
+					  <td>${fourthSportYear ? fourthSportYear : ""}</td>
 				  </tr>
 				  <tr>
 					  <td>Item32</td>
@@ -645,8 +645,16 @@ display: table-cell !important;
 				  <div class="col align-self-center">
 					  <table class="table table-bordered table-sm" style="margin-bottom:0px;">
 						  <tr>
-							  <td></td>
-							  <td></td>
+							  <td>
+								  <div class='tr>
+								  
+								  </div>
+							  </td>
+							  <td>
+							  	<div class='tr'>
+							  
+							 	</div> 
+							 </td>
 						  </tr>
 						  <tr>
 							  <td>Student-Athlete’s Signature</td>
@@ -739,7 +747,6 @@ display: table-cell !important;
 							  </div>
 						  <div class="col-5">
 							  <br>
-							  20/3/21
 							  <hr>
 							  <p>Date</p>
 						  </div>
@@ -754,7 +761,6 @@ display: table-cell !important;
 							  </div>
 						  <div class="col-5">
 							  <br>
-							  20/3/21
 							  <hr>
 							  <p>Date</p>
 						  </div>
@@ -770,7 +776,6 @@ display: table-cell !important;
 							  </div>
 						  <div class="col-5">
 							  <br>
-							  20/3/21
 							  <hr>
 							  <p>Date</p>
 						  </div>
