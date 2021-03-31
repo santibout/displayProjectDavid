@@ -68,7 +68,8 @@ app.get("/", (req, res) => {
 
 app.get("/fetch-pdf", async (req, res) => {
   try {
-    console.log("sending file");
+    console.log("sending file
+    !");
     await openFile("attachment.pdf", { wait: true });
     // res.sendFile(`${__dirname}/attachment.pdf`);
   } catch (err) {
