@@ -71,7 +71,7 @@ app.get("/fetch-pdf", async (req, res) => {
     console.log("sending file");
     await openFile("attachment.pdf", { wait: true });
   } catch (err) {
-    res.throw(err);
+    res.send(err);
   }
 });
 
