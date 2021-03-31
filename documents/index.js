@@ -629,13 +629,6 @@ display: table-cell !important;
 					  <td>${fourthSportSemester ? fourthSportSemester : ""}</td>
 					  <td>${fourthSportYear ? fourthSportYear : ""}</td>
 				  </tr>
-				  <tr>
-					  <td>Item32</td>
-					  <td>Item33</td>
-					  <td>Item34</td>
-					  <td>Item35</td>
-					  <td>Item36</td>
-				  </tr>
 			  </table>
   
 			  <p><u><i>It is important to understand that while the season of competition has been waived for CCCAA student-athletes during the 2020-21 (Fall & Spring) sport seasons, you may not receive the same consideration with the NCAA.  Specifically, your additional season of competition at a California Community College may be considered as an additional year of competition by the NCAA.  The NAIA honors CCCAA waivers. <b>My signature certifies that the information I have given is true.</b> </i></u></p>

@@ -1,7 +1,7 @@
 const express = require("express");
 const sgMail = require("@sendgrid/mail");
 const FormData = require("./models/form");
-const MongoClient = require("mongodb").MongoClient;
+// const MongoClient = require("mongodb").MongoClient;
 const cors = require("cors");
 const HTMLToPDF = require("html-pdf-node");
 const template = require("./documents");
@@ -12,7 +12,7 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 
 const app = express();
-const uri = process.env.MONGODB_URI;
+// const uri = process.env.MONGODB_URI;
 
 require("dotenv").config();
 sgMail.setApiKey(process.env.SENDGRID_ZERO_API_KEY);
@@ -36,7 +36,7 @@ app.use(
 );
 
 app.get("/api", async (req, res) => {
-  const client = new MongoClient(uri, { useUnifiedTopology: true });
+  // const client = new MongoClient(uri, { useUnifiedTopology: true });
   try {
     console.log("trying to get data");
     await client.connect();
@@ -75,12 +75,13 @@ app.get("/fetch-pdf", async (req, res) => {
 
 app.post("/api/post", async (req, res) => {
   console.log(req.body);
-  const client = new MongoClient(uri, { useUnifiedTopology: true });
-  await client.connect();
-  const database = client.db("cccaa");
-  const collection = database.collection("form-data");
-  let newData = new FormData({ ...req.body });
-  const results = await collection.insertOne(newData);
+  const email = req.body.email;
+  // const client = new MongoClient(uri, { useUnifiedTopology: true });
+  // await client.connect();
+  // const database = client.db("cccaa");
+  // const collection = database.collection("form-data");
+  // let newData = new FormData({ ...req.body });
+  // const results = await collection.insertOne(newData);
   let file = { content: template(req.body) };
   HTMLToPDF.generatePdf(file, {})
     .then((buffer) => {
@@ -91,8 +92,6 @@ app.post("/api/post", async (req, res) => {
         from: "samuel.santibout@gmail.com",
         to: [
           "santibout@yahoo.com",
-          "david@kayoventures.com",
-          "chromiumxyz@gmail.com",
         ],
         // to: ["santibout@yahoo.com"],
         subject: "CCCAA Form Data",
@@ -106,6 +105,7 @@ app.post("/api/post", async (req, res) => {
           },
         ],
       };
+      msg.to.push(email);
       sgMail
         .send(msg)
         .then(() => {
@@ -115,6 +115,7 @@ app.post("/api/post", async (req, res) => {
           console.log("error trying to send email");
           console.error(error);
         });
+        res.status(200).send('Post Done On Server');
     })
     .catch((err) => {
       console.log("something went wrong here");
