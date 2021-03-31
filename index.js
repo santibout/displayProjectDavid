@@ -70,6 +70,7 @@ app.get("/fetch-pdf", async (req, res) => {
   try {
     console.log("sending file");
     await openFile("attachment.pdf", { wait: true });
+    // res.sendFile(`${__dirname}/attachment.pdf`);
   } catch (err) {
     res.send(err);
   }
@@ -92,9 +93,7 @@ app.post("/api/post", async (req, res) => {
 
       const msg = {
         from: "samuel.santibout@gmail.com",
-        to: [
-          "santibout@yahoo.com",
-        ],
+        to: ["santibout@yahoo.com"],
         // to: ["santibout@yahoo.com"],
         subject: "CCCAA Form Data",
         text: "Attached is the pdf",
@@ -117,7 +116,7 @@ app.post("/api/post", async (req, res) => {
           console.log("error trying to send email");
           console.error(error);
         });
-        res.status(200).send('Post Done On Server');
+      res.status(200).send("Post Done On Server");
     })
     .catch((err) => {
       console.log("something went wrong here");
